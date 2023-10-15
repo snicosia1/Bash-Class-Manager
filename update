@@ -1,0 +1,69 @@
+#!/bin/bash
+
+  read -p "Enter Department Code: " dc
+  if [[ -z $dc ]]; then
+    echo "Nedd a department code to continue"
+    exit 1
+  fi
+  read -p "Enter Department Name: " ddn
+  read -p "Enter Course Number: " cnum
+  if [[ -z $cnum ]]; then
+    echo "Need a course number to continue"
+    exit 1
+  fi
+  read -p "Enter Course Name: " dcn
+  read -p "Enter Course Schedule: " dcs
+  read -p "Enter Course Start Date: " dcsd
+  read -p "Enter Course End Date: " dced
+  read -p "Enter Course Credit Hours: " dcch
+  read -p "Enter Course Enrollment: " dce
+  
+  file_name="data/${dc^^}$cnum.crs"
+  readData(){
+  read dc dn
+  read cn
+  read cs csd ced
+  read cch
+  read ce
+  }
+  
+  replaceData(){
+  echo "$dc $ddn"
+  echo "$dcn"
+  echo "$dcs $dcsd $dced"
+  echo "$dcch"
+  echo "$dce"
+  }
+  
+  if [[ -e $file_name ]]; then
+    readData < "$file_name"
+    if [[ -z $ddn ]]; then
+      ddn=$dn
+    fi
+    if [[ -z $dcn ]]; then
+      dcn=$cn
+    fi
+    if [[ -z $dcs ]]; then
+      dcs=$cs
+    fi
+    if [[ -z $dcsd ]]; then
+      dcsd=$csd
+    fi
+    if [[ -z $dced ]]; then
+      dced=$ced
+    fi
+    if [[ -z $dcch ]]; then
+      dcch=$cch
+    fi
+    if [[ -z $dce ]]; then
+      dce=$ce
+    fi
+    replaceData > "$file_name"
+    echo "[$(date)]: UPDATED: $dc $cnum $dcn" >> data/quaries.log
+  else
+    echo "ERROR: course not found"
+  fi
+  
+  
+  
+  

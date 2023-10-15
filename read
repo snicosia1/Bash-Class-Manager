@@ -1,0 +1,35 @@
+#!/bin/bash
+
+read -p "Enter a department code and course number: " dc cnum
+
+
+
+readData(){
+  read dc dn
+  read cn
+  read cs csd ced
+  read cch
+  read ice
+  
+  echo " "
+  echo "Course department: $dc $dn"
+  echo "Course number: $cnum"
+  echo "Course name: $cn"
+  echo "Scheduled days: $cs"
+  echo "Course start: $csd"
+  echo "Course end: $ced"
+  echo "Credit hours: $cch"
+  echo "Enrolled Students: $ice"
+  echo " "
+}
+
+file_name="data/${dc^^}$cnum.crs"
+
+if ! [[ -e $file_name ]]; then
+  echo "ERROR File not found"
+else
+  readData < "$file_name"
+fi
+
+
+    

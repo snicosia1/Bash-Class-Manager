@@ -1,0 +1,14 @@
+#!/bin/bash
+
+read -p "Enter a course department code and number: " dc cnum
+
+file_name="data/${dc^^}$cnum.crs"
+
+
+  if [[ -e $file_name ]]; then
+    rm "$file_name"
+     echo "[$(date)]: DELETED: $dc $cnum $cn" >> data/quaries.log
+    echo "course number was successfully deleted"
+  else
+    echo "ERROR course not found"
+  fi

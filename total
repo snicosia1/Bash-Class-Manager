@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+
+ 
+echo "Total records: $(ls data/*.crs | wc -l) "

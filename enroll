@@ -1,0 +1,34 @@
+#!/bin/bash
+
+read -p "Enter a copurse department code and number: " dc cnum
+read -p "Enter an enrollment change amount: " change
+
+file_name="data/${dc^^}$cnum.crs"
+
+readData(){
+  read dc dn
+  read cn
+  read cs csd ced
+  read cch
+  read ce
+  }
+  
+replaceData(){
+  echo "$dc $dn"
+  echo "$cn"
+  echo "$cs $csd $ced"
+  echo "$cch"
+  echo "$sum"
+  }
+  
+  if [[ -e $file_name ]]; then
+    readData < "$file_name"
+    s=$ce
+    c=$change
+    let sum=$s+$c
+    replaceData > "$file_name"
+    echo "[$(date)]: ENROLLED: $dc $cnum $cn" >> data/quaries.log
+    echo "changed by $change" >> data/quaries.log
+  else
+      echo "ERROR course not found"
+  fi

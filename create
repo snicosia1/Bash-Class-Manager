@@ -1,0 +1,42 @@
+#!/bin/bash
+
+read -p "Department code: " dc
+if ! [[ "$dc" =~ ^[a-zA-Z]{2,3}$ ]]; then
+  echo "ERROR department code must be 2 - 3 characters."
+  exit 1
+fi
+read -p "Department name: " dn
+read -p "Course number: " cnum
+if ! [[ "$cnum" =~ ^[0-9]+$ ]]; then
+  echo "ERROR needs to be an integer"
+  exit 1
+fi
+read -p "Course name: " cn
+read -p "Course schedule: " cs
+if ! [[ "$cs" =~ ^(MWF|TH)$ ]]; then
+  echo "ERROR invalid schedule"
+  exit 1
+fi
+read -p "Course start date: " csd
+read -p "Course end date: " ced
+read -p "Course credit hours: " cch
+read -p "Initial course enrollment: " ice
+
+tempVar=true
+while $tempVar; do
+if test -e "data/${dc^^}$cnum.crs"; then
+  
+  echo "FILE ALREADY EXISTS TRY AGAIN"
+  tempVar=false
+else
+
+echo "$dc $dn" > ${dc^^}$cnum.crs
+echo "$cn" >> ${dc^^}$cnum.crs
+echo "$cs $csd $ced" >> ${dc^^}$cnum.crs
+echo "$cch" >> ${dc^^}$cnum.crs
+echo "$ice" >> ${dc^^}$cnum.crs
+mv "${dc^^}$cnum.crs" "./data"
+echo "[$(date)]: CREATED: $dc $cnum $cn" >> data/quaries.log
+tempVar=false
+fi
+done
